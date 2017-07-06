@@ -1,7 +1,6 @@
 # Similutes a fight between characters using rules largely derived from
 # the tabletop RPG GURPS.
-# Experimenting with inheritance and composition,
-# even when they may not be the best way to do the job.
+# Experimenting with inheritance and composition.
 
 from random import randint, gauss
 import dice
@@ -27,11 +26,11 @@ class Character:
         self.weapon = None
 
         # states the character may be in
-        self.reeling = False
+        self._reeling = False
         self.conscious = True
-        self.alive = True
-        self.neg_hp_mult = -1
-        self.neg_hp = self.max_hp * self.neg_hp_mult
+        self._alive = True
+        self._neg_hp_mult = -1
+        self._neg_hp = self.max_hp * self._neg_hp_mult
         
         # skills
         self.melee_skill = MeleeSkill(self.dx, 1)
@@ -55,7 +54,7 @@ class Character:
     def melee_attack(self, target):
         attack = dice.roll_gurps(self.melee_skill.skill)
         target_dodge = target.parry_attack()
-        print('{}({}hp) attacks {}'.format(self.name, self.hp, target.name))
+        print('{}({}hp) attacks {}...{}'.format(self.name, self.hp, target.name, attack[1]))
 
         # determine outcome of attack
         if attack[1] == "Critical Success":
@@ -117,10 +116,10 @@ class Character:
         return dice.roll_gurps(self.melee_skill.parry)
 
     def turn(self):
-        if self.hp < (self.max_hp / 3) and not self.reeling:
+        if self.hp < (self.max_hp / 3) and not self._reeling:
             self.dodge = math.ceil(self.dodge / 2)
             self.move = math.ceil(self.move / 2)
-            self.reeling = True
+            self._reeling = True
             print("{} is reeling from his wounds!".format(self.name))
         if self.hp <= 0:
             if dice.roll_gurps(self.ht)[3]:
@@ -131,16 +130,16 @@ class Character:
 
         if self.hp <= self.max_hp * -5:
             self.conscious = False
-            self.alive = False
+            self._alive = False
             print("{} IS DEAD!".format(self.name))
-        elif self.hp <= self.neg_hp:
-            self.neg_hp_mult -= 1
-            self.neg_hp = self.max_hp * self.neg_hp_mult
+        elif self.hp <= self._neg_hp:
+            self._neg_hp_mult -= 1
+            self._neg_hp = self.max_hp * self._neg_hp_mult
             if dice.roll_gurps(self.ht)[3]:
                 print("{} is critically wounded, but clings to life through sheer willpower.".format(self.name))
             else:
                 self.conscious = False
-                self.alive = False
+                self._alive = False
                 print("{} IS DEAD!".format(self.name))
 
 
@@ -210,6 +209,27 @@ class MeleeSkill(Skill):
         self.skill = self.cont_att + self.mod + self.rank
         self.parry = int(self.skill / 2 + 3)
 
+class Battle:
+
+    def __init__(self):
+        self.round = 1
+
+    def battle(self):
+        while lee.conscious and goblin.conscious:
+            print()
+            print('----- Round', self.round, '-----')
+            lee.melee_attack(goblin)
+            print()
+            goblin.melee_attack(lee)
+            goblin.turn()
+            lee.turn()
+            self.round += 1
+            input('Press any key to continue.')
+        if lee.conscious and not goblin.conscious:
+            print('{} is victorious!'.format(lee.name))
+        else:
+            print('Lee fought bravely, but was defeated.')
+
 weapons = {'broadsword': {'name': 'Broadsword', 'type': 'cut', 'damage': ['sw', 2],
                           'cost': 500, 'weight': 3, 'min_str': 10, 'reach': 1}}
 
@@ -221,18 +241,8 @@ goblin = Character('Goblin', ht=13)
 goblin.weapon = MeleeWeapon(weapons['broadsword'])
 goblin.dr = 4
 
-while lee.conscious and goblin.conscious:
-    print()
-    lee.melee_attack(goblin)
-    print()
-    goblin.melee_attack(lee)
-    goblin.turn()
-    lee.turn()
-    input()
-if lee.conscious and not goblin.conscious:
-    print('{} is victorious!'.format(lee.name))
-else:
-    print('Lee fought bravely, but was defeated.')
+new_battle = Battle()
+new_battle.battle()
 
 
 print(lee.swing_dmg)

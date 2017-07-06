@@ -20,8 +20,8 @@ def gaussian_3d6():
     sd -= rank * .1
     return int(gauss(mean, sd))
 
-for i in range(10):
-    print(gaussian_3d6())
+# for i in range(10):
+#     print(gaussian_3d6())
 
 def roll_sd():
     # Returns a standard deviation with odds of result proportional to normal distribution
