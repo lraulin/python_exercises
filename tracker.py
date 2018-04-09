@@ -1,13 +1,19 @@
+#!/bin/python3
 # Uses sqlite to track data such as weight, etc.
 
 import sqlite3
 import time
 
-GOLDEN_RATIO = golden = (1 + 5 ** 0.5) / 2
+# Uses sqlite to track data such as weight, etc.
+
+import sqlite3
+import time
+
+GOLDEN_RATIO = (1 + 5 ** 0.5) / 2  # ≈1.618
 ideal_waist_height_ratio = .46
 height = 177 # cm
 ideal_waist = int(height * ideal_waist_height_ratio)
-ideal_shoulders = int(height * ideal_waist_height_ratio * GOLDEN_RATIO)
+ideal_shoulders = int(height * ideal_waist_height_ratio * GOLDEN_RATIO)    # measured at the broadest point around the shoulders, just above the nipples
 
 print("Target waist size: {} cm\nTarget shoulder size: {} cm".format(ideal_waist, ideal_shoulders))
 
@@ -23,6 +29,7 @@ print("Today is {}".format(today))
 
 # Check if we want to enter new data for today.
 newinput = input("Enter new data? (y/n)\n>")
+# If input begins with the letter 'y', the answer is 'yes'. Convert newinput to boolean.
 newinput = newinput.lower().strip()[0] == 'y'
 
 if newinput:
@@ -106,7 +113,7 @@ elif waist_height_ratio >= .47:
     print("""
 Looking good! But don't start pigging out yet!
     """)
-elif waist_height_ratio >= .46:
+else:
     print("""
 You are a god among men. Get more muscle, and don't get fat again!
     """)
