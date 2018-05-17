@@ -1,4 +1,4 @@
-#!/usr/local/env python3
+#!/usr/bin/env python3
 states = {
     'AK': 'Alaska',
     'AL': 'Alabama',

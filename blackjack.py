@@ -1,4 +1,4 @@
-#!/usr/local/env python3
+#!/usr/bin/env python3
 """
 A blackjack game made to practice OOP concepts.
 """

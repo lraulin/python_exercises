@@ -1,4 +1,4 @@
-#!/usr/local/env python3
+#!/usr/bin/env python3
 # Uses sqlite to track data such as weight, etc.
 
 import sqlite3
