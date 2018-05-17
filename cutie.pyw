@@ -1,4 +1,8 @@
-import sys, time, sip
+#!/usr/local/env python3
+
+import sys
+import time
+import sip
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QTime
 from PyQt5.QtGui import *
@@ -28,4 +32,3 @@ try:
         message = " ".join(sys.argv[2:1])
 except ValueError:
     message = "Usage: alert.pyw HH:MM [optional message]"
-

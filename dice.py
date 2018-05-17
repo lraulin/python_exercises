@@ -1,3 +1,4 @@
+#!/usr/local/env python3
 from random import randrange, randint, gauss
 
 
@@ -22,6 +23,7 @@ def gaussian_3d6():
 
 # for i in range(10):
 #     print(gaussian_3d6())
+
 
 def roll_sd():
     # Returns a standard deviation with odds of result proportional to normal distribution
@@ -88,8 +90,6 @@ def random_height(sex='m', units='in', mean=None, sd=None):
 #     print(random_height(units = 'm'))
 
 
-
-
 def rolld20():
     return roll(1, 20)
 
@@ -117,7 +117,7 @@ def roll_best(sides=6, dice=4, keep=3):
     rolls = []
     for i in range(dice):
         rolls.append(randint(1, sides))
-    #print(rolls)
+    # print(rolls)
     while len(rolls) > keep:
         rolls.remove(min(rolls))
     return sum(rolls)
@@ -166,6 +166,7 @@ def roll_nwod(pool, successes=0):
 
     return successes
 
+
 def roll_gurps(skill, *args):
     # Skill the player's effective skill.
     # Returns result of die roll and degree and margin of success or failure.
@@ -196,12 +197,14 @@ def roll_gurps(skill, *args):
 
     return roll, success, margin, passfail
 
+
 def gurps_quick_contest(skill1, skill2, mod1=0, mod2=0):
     # Returns margin of success for first actor
     # If negative, the absolute value is the margin of success for second actor.
     roll1 = roll_gurps(skill1 + mod1)[0]
     roll2 = roll_gurps(skill2 + mod2)[0]
     return roll1 - roll2
+
 
 def gurps_regular_contest(skill1, skill2):
     turns = 0
@@ -217,6 +220,7 @@ def gurps_regular_contest(skill1, skill2):
             skill2 += 10 - skill1
     while winner == '':
         pass
+
 
 def gurps_long_task(hours, *args):
     """
@@ -251,7 +255,7 @@ def gurps_long_task(hours, *args):
     return print('Task completed in {} days.'.format(day))
 
 
-#--------------------------------
+# --------------------------------
 # Test
 
 # if __name__ == "__main__":
@@ -263,7 +267,7 @@ def gurps_long_task(hours, *args):
 #
 #     gurps_long_task(100, 10, 10, 10)
 
-#--------------------------------
+# --------------------------------
 
 # OOP version
 

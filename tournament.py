@@ -1,3 +1,5 @@
+#!/usr/local/env python3
+
 # Similutes a fight between characters using rules largely derived from
 # the tabletop RPG GURPS.
 # Experimenting with inheritance and composition.

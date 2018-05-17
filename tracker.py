@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/local/env python3
 # Uses sqlite to track data such as weight, etc.
 
 import sqlite3
@@ -11,11 +11,13 @@ import time
 
 GOLDEN_RATIO = (1 + 5 ** 0.5) / 2  # ≈1.618
 ideal_waist_height_ratio = .46
-height = 177 # cm
+height = 177  # cm
 ideal_waist = int(height * ideal_waist_height_ratio)
-ideal_shoulders = int(height * ideal_waist_height_ratio * GOLDEN_RATIO)    # measured at the broadest point around the shoulders, just above the nipples
+# measured at the broadest point around the shoulders, just above the nipples
+ideal_shoulders = int(height * ideal_waist_height_ratio * GOLDEN_RATIO)
 
-print("Target waist size: {} cm\nTarget shoulder size: {} cm".format(ideal_waist, ideal_shoulders))
+print("Target waist size: {} cm\nTarget shoulder size: {} cm".format(
+    ideal_waist, ideal_shoulders))
 
 conn = sqlite3.connect('my_tracker.db')
 c = conn.cursor()
@@ -36,7 +38,8 @@ if newinput:
     # Get new waist size
     while True:
         try:
-            waist = int(input("What is your waist size (in cm) today? (Enter any non-numeric string to skip.)\n>"))
+            waist = int(input(
+                "What is your waist size (in cm) today? (Enter any non-numeric string to skip.)\n>"))
         except ValueError:
             print("Value Error. Enter waist size as a whole number in cm.")
             continue
@@ -47,7 +50,8 @@ if newinput:
 
     while True:
         try:
-            shoulders = int(input("What is your shoulder size (in cm) today? (Enter any non-numeric string to skip.)\n>"))
+            shoulders = int(input(
+                "What is your shoulder size (in cm) today? (Enter any non-numeric string to skip.)\n>"))
         except ValueError:
             print("Value Error. Enter waist size as a whole number in cm.")
             continue
@@ -85,7 +89,8 @@ else:
 adonis_index = shoulders / waist
 waist_height_ratio = waist / height
 print("Your current Adonis Index is {:.2f}".format(adonis_index))
-print("Your current waist-to-height ratio is {:.2f}".format(waist_height_ratio))
+print(
+    "Your current waist-to-height ratio is {:.2f}".format(waist_height_ratio))
 if waist_height_ratio >= .53:
     print("""
 You're fat as fuck! Your health is at risk and you look disgusting!

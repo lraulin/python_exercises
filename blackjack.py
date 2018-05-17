@@ -1,8 +1,10 @@
+#!/usr/local/env python3
 """
 A blackjack game made to practice OOP concepts.
 """
 
 from random import shuffle
+
 
 class Card():
 
@@ -37,6 +39,7 @@ class Card():
     def __repr__(self):
         return str(self)
 
+
 class Deck():
 
     def __init__(self):
@@ -63,6 +66,7 @@ class Deck():
 
     def get_size(self):
         return len(self.deck)
+
 
 new_card = Card(4, "Clubs")
 print(new_card.get_name())
